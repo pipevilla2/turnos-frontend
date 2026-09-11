@@ -1,0 +1,26 @@
+<nav>
+  <a routerLink="/agendar">Agendar turno</a>
+  <a routerLink="/mis-turnos">Mis turnos</a>
+</nav>
+
+<div class="container">
+  <div class="card" *ngIf="turno() as t">
+    <h2>Turno {{ t.codigoTurno }}</h2>
+    <p>Sucursal: <strong>{{ t.sucursalNombre }}</strong></p>
+    <p>Creado: {{ t.fechaHoraCreacion | date:'medium' }}</p>
+    <p>Límite de activación: {{ t.fechaHoraExpiracion | date:'medium' }}</p>
+    <span class="badge badge-{{ t.estado.toLowerCase() }}">{{ t.estado }}</span>
+
+    <div class="error" *ngIf="error()">{{ error() }}</div>
+
+    <div style="margin-top:16px;" *ngIf="t.estado === 'Pendiente'">
+      <button class="btn-primary" (click)="activar()" [disabled]="activando()">
+        {{ activando() ? 'Activando...' : 'Activar turno' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="card" *ngIf="!turno() && error()">
+    <p class="error">{{ error() }}</p>
+  </div>
+</div>

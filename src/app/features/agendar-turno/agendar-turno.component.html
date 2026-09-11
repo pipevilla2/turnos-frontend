@@ -1,0 +1,57 @@
+<nav>
+  <a routerLink="/agendar" class="active">Agendar turno</a>
+  <a routerLink="/mis-turnos">Mis turnos</a>
+  <span>Cédula: {{ (authServiceCedula) }}</span>
+</nav>
+
+<div class="container">
+  <div class="card" *ngIf="!turnoCreado()">
+    <h2>Agendar nuevo turno</h2>
+    <p>Selecciona la sucursal donde deseas ser atendido. Tendrás 15 minutos para activar tu turno al llegar.</p>
+
+    <label>Sucursal</label>
+    <select [(ngModel)]="sucursalSeleccionada">
+      <option [ngValue]="null" disabled>Selecciona una sucursal</option>
+      <option *ngFor="let s of sucursales()" [ngValue]="s.id">{{ s.nombre }} — {{ s.ciudad }}</option>
+    </select>
+
+    <div class="error" *ngIf="error()">{{ error() }}</div>
+
+    <button class="btn-primary" (click)="agendar()" [disabled]="cargando()">
+      {{ cargando() ? 'Agendando...' : 'Agendar turno' }}
+    </button>
+  </div>
+
+  <div class="card" *ngIf="turnoCreado()">
+    <ng-container>
+      <h2>Turno {{ turnoCreado()!.codigoTurno }}</h2>
+      <p>Sucursal: <strong>{{ turnoCreado()!.sucursalNombre }}</strong></p>
+      <span class="badge badge-{{ turnoCreado()!.estado.toLowerCase() }}">{{ turnoCreado()!.estado }}</span>
+
+      <div *ngIf="turnoCreado()!.estado === 'Pendiente'" style="margin-top:16px;">
+        <p>Tienes <strong>15 minutos</strong> para llegar a la sucursal y activar tu turno:</p>
+        <div class="timer">{{ formatoTiempo(segundosRestantes()) }}</div>
+
+        <div class="error" *ngIf="error()">{{ error() }}</div>
+
+        <button class="btn-primary" style="margin-top:16px;" (click)="activarTurno()"
+                [disabled]="activando() || segundosRestantes() <= 0">
+          {{ activando() ? 'Activando...' : 'Activar turno en sucursal' }}
+        </button>
+
+        <p *ngIf="segundosRestantes() <= 0" class="error">
+          Tu turno expiró. Puedes generar uno nuevo.
+        </p>
+      </div>
+
+      <div *ngIf="turnoCreado()!.estado === 'Activado'" style="margin-top:16px;">
+        <p>✅ Turno activado. Por favor espera a ser llamado en pantalla.</p>
+      </div>
+
+      <div style="margin-top: 20px; display:flex; gap:10px;">
+        <button class="btn-secondary" (click)="nuevoTurno()">Agendar otro turno</button>
+        <button class="btn-secondary" (click)="irAMisTurnos()">Ver mis turnos</button>
+      </div>
+    </ng-container>
+  </div>
+</div>

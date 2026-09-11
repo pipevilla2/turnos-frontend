@@ -1,0 +1,36 @@
+<nav>
+  <a routerLink="/agendar">Agendar turno</a>
+  <a routerLink="/mis-turnos" class="active">Mis turnos</a>
+</nav>
+
+<div class="container">
+  <div class="card">
+    <h2>Mis turnos</h2>
+
+    <div class="error" *ngIf="error()">{{ error() }}</div>
+    <p *ngIf="cargando()">Cargando...</p>
+
+    <table style="width:100%; border-collapse: collapse;" *ngIf="!cargando() && turnos().length">
+      <thead>
+        <tr style="text-align:left; border-bottom: 1px solid #e5e7eb;">
+          <th>Código</th>
+          <th>Sucursal</th>
+          <th>Creado</th>
+          <th>Estado</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of turnos()" style="border-bottom: 1px solid #f1f1f1;">
+          <td>{{ t.codigoTurno }}</td>
+          <td>{{ t.sucursalNombre }}</td>
+          <td>{{ t.fechaHoraCreacion | date:'short' }}</td>
+          <td><span class="badge badge-{{ t.estado.toLowerCase() }}">{{ t.estado }}</span></td>
+          <td><a [routerLink]="['/turnos', t.id]">Ver</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p *ngIf="!cargando() && !turnos().length">Aún no tienes turnos agendados.</p>
+  </div>
+</div>
