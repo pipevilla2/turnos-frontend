@@ -1,6 +1,7 @@
 <nav>
   <a routerLink="/agendar">Agendar turno</a>
   <a routerLink="/mis-turnos">Mis turnos</a>
+  <button class="nav-logout" type="button" (click)="salir()">Salir</button>
 </nav>
 
 <div class="container">
@@ -14,7 +15,11 @@
     <div class="error" *ngIf="error()">{{ error() }}</div>
 
     <div style="margin-top:16px;" *ngIf="t.estado === 'Pendiente'">
-      <button class="btn-primary" (click)="activar()" [disabled]="activando()">
+      <p>Tienes <strong>{{ formatoTiempo(segundosRestantes()) }}</strong> para activar tu turno.</p>
+      <p class="error" *ngIf="segundosRestantes() <= 0">
+        El tiempo de activación terminó. Puedes solicitar un nuevo turno.
+      </p>
+      <button class="btn-primary" (click)="activar()" [disabled]="activando() || segundosRestantes() <= 0">
         {{ activando() ? 'Activando...' : 'Activar turno' }}
       </button>
     </div>

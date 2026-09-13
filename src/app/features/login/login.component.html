@@ -1,14 +1,39 @@
-<div class="container">
-  <div class="card">
-    <h2>Banco Amaris · Turnos</h2>
-    <p>Ingresa tu número de cédula para agendar o consultar tus turnos.</p>
+<main class="kiosk-shell">
+  <section class="kiosk-panel" aria-labelledby="kiosk-title">
+    <div class="kiosk-brand">BANCO <span>TURNOS</span></div>
+    <h1 id="kiosk-title">Bienvenido</h1>
+    <div *ngIf="!autenticado()">
+      <p class="kiosk-intro">Ingresa tu número de cédula para continuar</p>
 
-    <label>Número de cédula</label>
-    <input type="text" [(ngModel)]="cedula" placeholder="Ej: 1020304050" (keyup.enter)="ingresar()">
-    <div class="error" *ngIf="error()">{{ error() }}</div>
+      <label class="kiosk-label" for="cedula">Número de cédula</label>
+      <input id="cedula" class="kiosk-input" type="text" inputmode="numeric" maxlength="15"
+        autocomplete="off" [(ngModel)]="cedula" placeholder="Ingresa tu cédula"
+        (keyup.enter)="ingresar()" aria-describedby="kiosk-help kiosk-error">
+      <p id="kiosk-help" class="kiosk-help">Debe contener entre 6 y 15 dígitos</p>
 
-    <button class="btn-primary" (click)="ingresar()" [disabled]="cargando()">
-      {{ cargando() ? 'Ingresando...' : 'Continuar' }}
-    </button>
-  </div>
-</div>
+      <div class="kiosk-keypad" aria-label="Teclado numérico">
+        <button *ngFor="let tecla of teclas" type="button" class="keypad-key" (click)="agregarDigito(tecla)">{{ tecla }}</button>
+        <button type="button" class="keypad-key keypad-action" (click)="borrarDigito()" aria-label="Borrar último dígito">Borrar</button>
+        <button type="button" class="keypad-key keypad-action" (click)="limpiar()">Limpiar</button>
+      </div>
+
+      <p id="kiosk-error" class="error kiosk-error" *ngIf="error()">{{ error() }}</p>
+      <button class="kiosk-login" type="button" (click)="ingresar()" [disabled]="cargando()">
+        {{ cargando() ? 'Validando...' : 'Validar cédula' }}
+      </button>
+    </div>
+
+    <div class="kiosk-actions" *ngIf="autenticado()">
+      <p class="kiosk-success">Selecciona una opción</p>
+      <button class="kiosk-option kiosk-option-primary" type="button" (click)="irA('/agendar')">
+        <span class="kiosk-option-icon" aria-hidden="true">+</span><span>Agendar turno</span>
+      </button>
+      <button class="kiosk-option kiosk-option-secondary" type="button" (click)="irA('/mis-turnos')">
+        <span class="kiosk-option-icon" aria-hidden="true">≡</span><span>Ver mis turnos</span>
+      </button>
+      <button class="kiosk-option kiosk-option-exit" type="button" (click)="salir()">
+        <span class="kiosk-option-icon" aria-hidden="true">↪</span><span>Salir</span>
+      </button>
+    </div>
+  </section>
+</main>

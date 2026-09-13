@@ -5,6 +5,31 @@ body {
   background: #f2f4f7;
   color: #1f2937;
 }
+.kiosk-shell { min-height: 100vh; display: grid; place-items: center; padding: 28px 16px; background: linear-gradient(145deg, #edf3f8 0%, #f8fafc 55%, #e4edf3 100%); }
+.kiosk-panel { width: min(100%, 520px); padding: 34px clamp(22px, 5vw, 48px) 42px; border: 1px solid #d8e1e8; border-radius: 18px; background: #fff; box-shadow: 0 18px 45px rgba(15, 45, 70, .12); text-align: center; }
+.kiosk-brand { color: #0b3d91; font-size: 15px; font-weight: 800; letter-spacing: 2px; }
+.kiosk-brand span { color: #55a55a; }
+.kiosk-panel h1 { margin: 22px 0 8px; color: #153b5b; font-size: clamp(28px, 5vw, 38px); }
+.kiosk-intro { margin: 0 0 24px; color: #536779; font-size: 16px; }
+.kiosk-label { display: block; margin-bottom: 8px; color: #153b5b; text-align: left; font-size: 14px; font-weight: 700; }
+.kiosk-input { height: 58px; margin-bottom: 6px; border: 2px solid #a9bfce; border-radius: 10px; color: #153b5b; font-size: 24px; text-align: center; letter-spacing: 2px; }
+.kiosk-input:focus { border-color: #0b3d91; outline: 3px solid rgba(11, 61, 145, .16); }
+.kiosk-help { margin: 0 0 18px; color: #718394; font-size: 12px; }
+.kiosk-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 330px; margin: 0 auto 18px; }
+.keypad-key { min-height: 54px; border: 1px solid #cbd8e1; border-radius: 10px; background: #f7fafc; color: #153b5b; font-size: 22px; font-weight: 700; }
+.keypad-key:hover, .keypad-key:focus-visible { border-color: #0b3d91; background: #e9f0f7; outline: none; }
+.keypad-action { color: #496071; font-size: 14px; }
+.kiosk-error { min-height: 18px; margin: 0 0 12px; }
+.kiosk-login, .kiosk-option { width: 100%; min-height: 58px; border-radius: 10px; font-size: 17px; }
+.kiosk-login { background: #0b3d91; color: #fff; }
+.kiosk-login:disabled { background: #9aaab7; cursor: not-allowed; }
+.kiosk-actions { margin-top: 24px; padding-top: 22px; border-top: 1px solid #e1e8ed; }
+.kiosk-success { margin: 0 0 12px; color: #347a40; font-weight: 700; }
+.kiosk-option { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 10px; }
+.kiosk-option-primary { background: #55a55a; color: #fff; }
+.kiosk-option-secondary { background: #e9f0f7; color: #153b5b; }
+.kiosk-option-exit { background: #fce8e8; color: #9b2c2c; }
+.kiosk-option-icon { font-size: 25px; line-height: 1; }
 .container { max-width: 720px; margin: 0 auto; padding: 24px 16px; }
 .card {
   background: #fff;
@@ -45,3 +70,4 @@ nav { background: #0b3d91; padding: 14px 20px; display: flex; gap: 20px; align-i
 nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: 14px; }
 nav a.active { text-decoration: underline; }
 nav span { margin-left: auto; color: #cbd5e1; font-size: 13px; }
+.nav-logout { margin-left: auto; padding: 7px 14px; background: #fff; color: #0b3d91; font-size: 13px; }

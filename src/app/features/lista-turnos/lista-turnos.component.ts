@@ -1,6 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { TurnoService } from '../../core/services/turno.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Turno } from '../../core/models/turno.model';
@@ -16,7 +16,11 @@ export class ListaTurnosComponent implements OnInit {
   cargando = signal(false);
   error = signal<string | null>(null);
 
-  constructor(private turnoService: TurnoService, private authService: AuthService) {}
+  constructor(
+    private turnoService: TurnoService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.cargar();
@@ -37,5 +41,10 @@ export class ListaTurnosComponent implements OnInit {
         this.error.set('No fue posible cargar tus turnos.');
       }
     });
+  }
+
+  salir(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

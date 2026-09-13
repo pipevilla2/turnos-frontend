@@ -95,6 +95,12 @@ export class AgendarTurnoComponent implements OnInit, OnDestroy {
     this.router.navigate(['/mis-turnos']);
   }
 
+  salir(): void {
+    this.cronometro?.unsubscribe();
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+
   private iniciarCronometro(segundosIniciales: number): void {
     this.segundosRestantes.set(segundosIniciales);
     this.cronometro?.unsubscribe();
