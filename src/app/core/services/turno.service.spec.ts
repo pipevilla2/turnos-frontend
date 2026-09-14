@@ -11,7 +11,7 @@ describe('TurnoService', () => {
 
   const turnoEjemplo: Turno = {
     id: '11111111-1111-1111-1111-111111111111',
-    codigoTurno: 'S01-240101-001',
+    codigoTurno: 'S01-001',
     cedula: '123456',
     sucursalId: 1,
     sucursalNombre: 'Centro',
@@ -34,7 +34,7 @@ describe('TurnoService', () => {
 
   it('debería crear un turno vía POST /turnos', () => {
     service.crear({ cedula: '123456', sucursalId: 1 }).subscribe(turno => {
-      expect(turno.codigoTurno).toBe('S01-240101-001');
+      expect(turno.codigoTurno).toBe('S01-001');
     });
 
     const req = httpMock.expectOne(`${environment.apiUrl}/turnos`);
