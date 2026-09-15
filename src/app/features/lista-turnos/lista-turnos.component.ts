@@ -12,6 +12,10 @@ import { Turno } from '../../core/models/turno.model';
   templateUrl: './lista-turnos.component.html'
 })
 export class ListaTurnosComponent implements OnInit {
+  get authServiceCedula(): string | null {
+    return this.authService.cedulaActual;
+  }
+
   turnos = signal<Turno[]>([]);
   cargando = signal(false);
   error = signal<string | null>(null);

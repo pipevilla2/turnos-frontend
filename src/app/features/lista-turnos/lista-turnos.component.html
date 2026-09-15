@@ -1,6 +1,7 @@
 <nav>
   <a routerLink="/agendar">Agendar turno</a>
   <a routerLink="/mis-turnos" class="active">Mis turnos</a>
+  <span>Cédula: {{ (authServiceCedula) }}</span>
   <button class="nav-logout" type="button" (click)="salir()">Salir</button>
 </nav>
 

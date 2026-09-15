@@ -24,6 +24,7 @@
     </div>
 
     <div class="kiosk-actions" *ngIf="autenticado()">
+      <p class="kiosk-cedula">Cédula: {{ cedula }}</p>
       <p class="kiosk-success">Selecciona una opción</p>
       <button class="kiosk-option kiosk-option-primary" type="button" (click)="irA('/agendar')">
         <span class="kiosk-option-icon" aria-hidden="true">+</span><span>Agendar turno</span>
